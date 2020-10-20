@@ -164,3 +164,33 @@ services:
     depends_on:
       - keycloak_db
     restart: unless-stopped
+
+  elasticsearch:
+    image: elasticsearch:7.9.2
+    environment:
+        - "discovery.type=single-node"
+    ports:
+        - 9200:9200
+        - 9300:9300
+    restart: unless-stopped
+        
+  kibana:
+    image: kibana:7.9.2
+    ports:
+        - 5601:5601
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+      
+  logstash:
+    image: logstash:7.9.2
+    ports:
+        - 9600:9600
+        - 8089:8089
+    volumes:
+      - .\logstash:/usr/share/logstash/pipeline/
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+      
+

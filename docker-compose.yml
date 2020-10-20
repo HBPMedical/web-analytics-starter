@@ -70,7 +70,7 @@ services:
     restart: on-failure
 
   portalbackend:
-    image: hbpmip/portal-backend:${PORTALBACKEND}
+    image: thanasulas/portal-backend:latest
     ports:
       - '8080:8080'
       - '8089:8089'
@@ -107,8 +107,11 @@ services:
       - create_dbs
     volumes:
       - ./config:/opt/portal/api
-      - ./logs:/opt/portal/logs
     restart: unless-stopped
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://localhost:8088"
 
   frontend:
     image: hbpmip/portal-frontend:${FRONTEND}
@@ -153,7 +156,7 @@ services:
       DB_DATABASE: keycloak
       DB_USER: keycloak
       DB_SCHEMA: public
-      DB_PASSWORD: password
+      DB_PASSWORD:  
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: Pa55w0rd
       KEYCLOAK_IMPORT: /tmp/mip.json
@@ -169,9 +172,6 @@ services:
     image: elasticsearch:7.9.2
     environment:
         - "discovery.type=single-node"
-    ports:
-        - 9200:9200
-        - 9300:9300
     restart: unless-stopped
         
   kibana:
@@ -185,10 +185,9 @@ services:
   logstash:
     image: logstash:7.9.2
     ports:
-        - 9600:9600
-        - 8089:8089
+        - 8088:8089
     volumes:
-      - .\logstash:/usr/share/logstash/pipeline/
+      - .\config\logstash:/usr/share/logstash/pipeline/
     depends_on:
       - elasticsearch
     restart: unless-stopped

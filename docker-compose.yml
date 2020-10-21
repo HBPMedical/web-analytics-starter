@@ -111,7 +111,7 @@ services:
     logging:
       driver: syslog
       options:
-        syslog-address: "tcp://localhost:8088"
+        syslog-address: "udp://localhost:5000"
 
   frontend:
     image: hbpmip/portal-frontend:${FRONTEND}
@@ -171,13 +171,13 @@ services:
   elasticsearch:
     image: elasticsearch:7.9.2
     environment:
-        - "discovery.type=single-node"
+      - "discovery.type=single-node"
     restart: unless-stopped
         
   kibana:
     image: kibana:7.9.2
     ports:
-        - 5601:5601
+      - 5601:5601
     depends_on:
       - elasticsearch
     restart: unless-stopped
@@ -185,9 +185,9 @@ services:
   logstash:
     image: logstash:7.9.2
     ports:
-        - 8088:8089
+      - 5000:5000/udp
     volumes:
-      - .\config\logstash:/usr/share/logstash/pipeline/
+      - ./config/logstash:/usr/share/logstash/pipeline/
     depends_on:
       - elasticsearch
     restart: unless-stopped

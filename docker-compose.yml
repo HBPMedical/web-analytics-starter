@@ -75,34 +75,36 @@ services:
       - '8080:8080'
       - '8089:8089'
     environment:
+      ### Portal-Backend
+      LOGGING_LEVEL_WEB: INFO
+      LOGGING_LEVEL_HIBERNATE: INFO
+      CONTEXT_PATH: /services
+      RELEASE_STAGE: 'production'
+      ### Database ###
       PORTAL_DB_URL: jdbc:postgresql://portalbackend_db:5433/portal
       PORTAL_DB_SERVER: portalbackend_db:5433
       PORTAL_DB_USER: portal
       PORTAL_DB_PASSWORD: portalpwd
-      CONTEXT_PATH: /services
-      AUTHENTICATION: ${KEYCLOAK_AUTHENTICATION}
-      CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
-      CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
+      ### Frontend ###
       FRONTEND_LOGIN_URL: http://${PUBLIC_MIP_HOST}/services/login/hbp
       FRONTEND_AFTER_LOGIN_URL: http://${PUBLIC_MIP_HOST}/
       FRONTEND_AFTER_LOGOUT_URL: http://${PUBLIC_MIP_HOST}/services/login/hbp
-      LOGGING_LEVEL_WEB: INFO
-      LOGGING_LEVEL_HIBERNATE: INFO
       SESSION_TIMEOUT: 2592000
-      RELEASE_STAGE: 'production'
-      DATACENTER_LOCATION: 'CHUV'
-      CONTAINER_ORCHESTRATION: 'docker-compose'
+      # Exareme ###
       EXAREME_URL: http://exareme_master:9090
+      # Galaxy ###
       GALAXY_URL: http://galaxy
       GALAXY_CONTEXT: nativeGalaxy/workflows/list
       GALAXY_API_KEY: d14a4cc5eebf805eb2ff261374ed08a2
       GALAXY_USERNAME: admin
       GALAXY_PASSWORD: password
+      ### Authentication/Keycloak ###
+      AUTHENTICATION: ${KEYCLOAK_AUTHENTICATION}
+      CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
+      CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
       KEYCLOAK_URL: ${KEYCLOAK_URL}
-      AUTH_URI: ${KEYCLOAK_PROTOCOL}://${KEYCLOAK_URL}/auth/realms/${KEYCLOAK_REALM}/protocol/openid-connect/auth
-      USER_INFO_URI: ${KEYCLOAK_PROTOCOL}://${KEYCLOAK_URL}/auth/realms/${KEYCLOAK_REALM}/protocol/openid-connect/userinfo
-      TOKEN_URI: ${KEYCLOAK_PROTOCOL}://${KEYCLOAK_URL}/auth/realms/${KEYCLOAK_REALM}/protocol/openid-connect/token
-      LOGOUT_URI: ${KEYCLOAK_PROTOCOL}://${KEYCLOAK_URL}/auth/realms/${KEYCLOAK_REALM}/protocol/openid-connect/logout
+      KEYCLOAK_REALM: ${KEYCLOAK_REALM}
+      LOGOUT_URL: ${KEYCLOAK_PROTOCOL}://${KEYCLOAK_URL}/auth/realms/${KEYCLOAK_REALM}/protocol/openid-connect/logout
     depends_on:
       - create_dbs
     volumes:

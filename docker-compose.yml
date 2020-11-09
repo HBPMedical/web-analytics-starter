@@ -76,8 +76,8 @@ services:
       - '8089:8089'
     environment:
       ### Portal-Backend
-      LOGGING_LEVEL_WEB: INFO
-      LOGGING_LEVEL_HIBERNATE: INFO
+      LOG_LEVEL: INFO
+      LOG_LEVEL_FRAMEWORK: INFO
       CONTEXT_PATH: /services
       RELEASE_STAGE: 'production'
       ### Database ###

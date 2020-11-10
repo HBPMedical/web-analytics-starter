@@ -70,7 +70,7 @@ services:
     restart: on-failure
 
   portalbackend:
-    image: hbpmip/portal-backend:${PORTALBACKEND}
+    image: thanasulas/portal-backend:latest
     ports:
       - '8080:8080'
       - '8089:8089'
@@ -85,7 +85,7 @@ services:
       PORTAL_DB_SERVER: portalbackend_db:5433
       PORTAL_DB_USER: portal
       PORTAL_DB_PASSWORD: portalpwd
-      ### Frontend ###
+      ### Frontend ### TODO Check if needed
       FRONTEND_LOGIN_URL: http://${PUBLIC_MIP_HOST}/services/login/hbp
       FRONTEND_AFTER_LOGIN_URL: http://${PUBLIC_MIP_HOST}/
       FRONTEND_AFTER_LOGOUT_URL: http://${PUBLIC_MIP_HOST}/services/login/hbp
@@ -102,7 +102,7 @@ services:
       AUTHENTICATION: ${KEYCLOAK_AUTHENTICATION}
       CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
       CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
-      KEYCLOAK_URL: ${KEYCLOAK_URL}
+      KEYCLOAK_AUTH_URL: ${KEYCLOAK_PROTOCOL}://${KEYCLOAK_URL}/auth/
       KEYCLOAK_REALM: ${KEYCLOAK_REALM}
       LOGOUT_URL: ${KEYCLOAK_PROTOCOL}://${KEYCLOAK_URL}/auth/realms/${KEYCLOAK_REALM}/protocol/openid-connect/logout
     depends_on:

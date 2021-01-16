@@ -16,12 +16,15 @@ services:
 
   portalbackend_db:
     image: postgres:11.3-alpine
+    volumes:
+      - ./.stored_data/portalbackenddb:/var/lib/postgresql/data
     hostname: portalbackend_db
     environment:
       POSTGRES_PASSWORD: test
+    command: -p 5433
+    expose:
+      - 5433
     restart: unless-stopped
-    volumes:
-      - ./.stored_data/portalbackenddb:/var/lib/postgresql/data
 
   create_dbs:
     image: hbpmip/create-databases:1.1.0
@@ -29,7 +32,7 @@ services:
       - portalbackend_db
     environment:
       DB_HOST: portalbackend_db
-      DB_PORT: 5432
+      DB_PORT: 5433
       DB_ADMIN_USER: postgres
       DB_ADMIN_PASSWORD: test
       DB4: portal
@@ -64,7 +67,6 @@ services:
       KEYCLOAK_REALM: ${KEYCLOAK_REALM}
       KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
       KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
-      KEYCLOAK_SSL_REQUIRED: ALL
     depends_on:
       - create_dbs
     volumes:
@@ -89,5 +91,4 @@ services:
       TRACKER_ID: UA-80660232-5
       GALAXY_URL: http://galaxy/nativeGalaxy
       DATACATALOGUE_SERVER: ${DATACATALOGUE_PROTOCOL}://${DATACATALOGUE_HOST}
-      KEYCLOAK_AUTH_URL: /services/sso/login
     restart: unless-stopped

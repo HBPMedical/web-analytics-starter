@@ -73,14 +73,14 @@ services:
     restart: on-failure
 
   frontend:
-    image: hbpmip/portal-frontend:${FRONTEND}
+    image: hbpmip/portal-frontend:7.0.0-1-g3ee4325d
     ports:
       - '80:80'
     environment:
       WORKER_PROCESSES: 1
       ERROR_LOG_LEVEL: warn
       PORTAL_VIRTUAL_HOST: frontend
-      PORTAL_BACKEND_SERVER: 192.168.1.147:8080
+      PORTAL_BACKEND_SERVER: 172.17.0.1:8080
       PORTAL_BACKEND_CONTEXT: services
       INSTANCE_NAME: 'MIP ${MIP}'
       VERSION: 'Frontend: ${FRONTEND}, Backend: ${PORTALBACKEND}, Exareme: ${EXAREME}, Galaxy: ${GALAXY}'

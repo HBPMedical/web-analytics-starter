@@ -81,6 +81,8 @@ services:
     ports:
       - '80:80'
     environment:
+      PUBLIC_MIP_HOST: ${PUBLIC_MIP_HOST}
+      PUBLIC_MIP_PROTOCOL: ${PUBLIC_MIP_PROTOCOL}
       WORKER_PROCESSES: 1
       ERROR_LOG_LEVEL: warn
       PORTAL_VIRTUAL_HOST: frontend

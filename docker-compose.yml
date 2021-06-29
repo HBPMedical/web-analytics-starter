@@ -80,7 +80,7 @@ services:
       WORKER_PROCESSES: 1
       ERROR_LOG_LEVEL: warn
       PORTAL_VIRTUAL_HOST: frontend
-      PORTAL_BACKEND_SERVER: 172.17.0.1:8080
+      PORTAL_BACKEND_SERVER: 192.168.124.129:8080
       PORTAL_BACKEND_CONTEXT: services
       INSTANCE_NAME: 'MIP ${MIP}'
       VERSION: 'Frontend: ${FRONTEND}, Backend: ${PORTALBACKEND}, Exareme: ${EXAREME}, Galaxy: ${GALAXY}'

@@ -25,6 +25,10 @@
             {
               "code": "fake_longitudinal",
               "label": "Longitudinal"
+            },
+            {
+              "code": "demo_data",
+              "label": "DEMO_DATA"
             }
           ],
           "label": "Dataset",
@@ -1537,6 +1541,26 @@
           "variables": [
             {
               "isCategorical": true,
+              "code": "alzheimerbroadcategory_bin",
+              "sql_type": "int",
+              "description": "There will be two broad categories taken into account. Alzheimer s disease (AD) in which the diagnostic is 100% certain and <Other> comprising the rest of Alzheimer s related categories. The <Other> category refers to Alzheime s related diagnosis which origin can be traced to other pathology eg. vascular. In this category MCI diagnosis can also be found. In summary  all Alzheimer s related diagnosis that are not pure.",
+              "enumerations": [
+                {
+                  "code": 1,
+                  "label": "Alzheimer’s disease"
+                },
+                {
+                  "code": 0,
+                  "label": "Cognitively Normal"
+                }
+              ],
+              "label": "Alzheimer Broad Category Binary",
+              "units": "",
+              "type": "nominal",
+              "methodology": "mip-cde"
+            },
+            {
+              "isCategorical": true,
               "code": "alzheimerbroadcategory",
               "sql_type": "text",
               "description": "There will be two broad categories taken into account. Alzheimer s disease (AD) in which the diagnostic is 100% certain and <Other> comprising the rest of Alzheimer s related categories. The <Other> category refers to Alzheime s related diagnosis which origin can be traced to other pathology eg. vascular. In this category MCI diagnosis can also be found. In summary  all Alzheimer s related diagnosis that are not pure.",
@@ -2448,6 +2472,10 @@
       {
         "code": "fake_longitudinal",
         "label": "Longitudinal"
+      },
+      {
+        "code": "demo_data",
+        "label": "DEMO_DATA"
       },
       {
         "code": "ppmi",

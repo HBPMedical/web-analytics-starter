@@ -9,7 +9,7 @@ services:
       - '8090:80'
     environment:
       - EXAREME_IP=${EXAREME_IP}
-      - EXAREME_PORT=9090
+      - EXAREME_PORT=${EXAREME_PORT}
       - PASSWORD=password
     command: bash -c "htpasswd -bc /etc/apache2/htpasswd admin $$PASSWORD && ./createExaremeVariables.sh && /etc/init.d/apache2 restart && ./run.sh"
     restart: unless-stopped
@@ -58,7 +58,7 @@ services:
       ### MIP-Engine ###
       MIPENGINE_URL: ${MIP_ENGINE_URL}
       ### Exareme ###
-      EXAREME_URL: http://${EXAREME_IP}:9090
+      EXAREME_URL: http://${EXAREME_IP}:${EXAREME_PORT}
       ### Galaxy ###
       GALAXY_URL: http://galaxy
       GALAXY_API_KEY: d14a4cc5eebf805eb2ff261374ed08a2
